@@ -1,0 +1,30 @@
+﻿@using BankListManagement.Models;
+@model List<BankBase>
+@{
+    ViewBag.Title = "BankListIndex";
+}
+
+<h2>BankListIndex</h2>
+
+<div class="sc-box scb-table stb-oneline" id="ResultTable">
+    <div class="scb-table-body stb-thbg">
+        <table>
+            <thead>
+                <tr>
+                    <th>銀行代號</th>
+                    <th>金融機構</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.BankCode</td>
+                        <td>@item.Bank</td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
