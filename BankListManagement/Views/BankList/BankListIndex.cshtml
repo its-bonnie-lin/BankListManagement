@@ -7,24 +7,18 @@
 <h2>BankListIndex</h2>
 
 <div class="sc-box scb-table stb-oneline" id="ResultTable">
-    <div class="scb-table-body stb-thbg">
-        <table>
-            <thead>
-                <tr>
-                    <th>銀行代號</th>
-                    <th>金融機構</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>@item.BankCode</td>
-                        <td>@item.Bank</td>
-                    </tr>
-                }
+    @using (Ajax.BeginForm("QueryBankResult", new AjaxOptions { UpdateTargetId = "queryResult" }))
+    {
+        <div class="btn-box">
+            <input type="text" id="txtBankCode" name="BankCode" class="s2i-item" placeholder="請輸入銀行代號">
+            <input type="text" id="txtBank" name="BankName" class="s2i-item" placeholder="請輸入查詢銀行">
+            <input type="submit" id="btnQuery"  class="btn link-submit" value="查詢"/>
+        </div>
 
-            </tbody>
-        </table>
-    </div>
+    }
+
+</div>
+
+<div id="queryResult">
+
 </div>

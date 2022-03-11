@@ -20,15 +20,16 @@ namespace BankListManagement.Commands
             var result = _bankListService.ReadBankList();
             return result;
         }
+        
         /// <summary>
         /// 查詢
         /// </summary>
-        /// <param name="BankCode"></param>
-        /// <param name="Bank"></param>
+        /// <param name="QueryBankCode"></param>
+        /// <param name="QueryBankName"></param>
         /// <returns></returns>
-        public List<BankBase> QueryBankListResult(int BankCode, string Bank)
+        public QueryBankResult QueryBankResult(string QueryBankCode, string QueryBankName)
         {
-            var result = _bankListService.QueryBankListResult(BankCode, Bank);
+            var result = _bankListService.QueryBankResult(QueryBankCode, QueryBankName);
             return result;
         }
     }

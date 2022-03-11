@@ -28,9 +28,13 @@ namespace BankListManagement.Controllers
         }
 
         [HttpPost]
-        public ActionResult QueryBankListResult(int BankCode, string Bank)
+        public ActionResult QueryBankResult(string QueryBankCode, string QueryBankName)
         {
-            var list = _bankListCommands.QueryBankListResult(BankCode,Bank);
+            if (string.IsNullOrWhiteSpace(QueryBankCode) && string.IsNullOrWhiteSpace(QueryBankName))
+            {
+                return View(_bankListCommands.ReadBankList());
+            }
+            var list = _bankListCommands.QueryBankResult(QueryBankCode, QueryBankName);
             
             return View(list);
         }

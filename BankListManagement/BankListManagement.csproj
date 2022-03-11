@@ -165,6 +165,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\BankBase.cs" />
+    <Compile Include="Models\QueryBankResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BankListRepository.cs" />
     <Compile Include="Services\BankListService.cs" />
@@ -207,9 +208,9 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\BankList\BankListIndex.cshtml" />
-    <Content Include="Views\BankList\QueryBankListResult.cshtml" />
+    <Content Include="Views\BankList\QueryBankResult.cshtml" />
+    <Content Include="Views\Shared\NoData.cshtml" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

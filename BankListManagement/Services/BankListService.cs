@@ -19,15 +19,17 @@ namespace BankListManagement.Services
         {
             return _bankListRepository.ReadBankList();
         }
+        
         /// <summary>
         /// 查詢
         /// </summary>
-        /// <param name="BankCode">銀行代碼</param>
-        /// <param name="Bank">銀行</param>
+        /// <param name="QueryBankCode"></param>
+        /// <param name="QueryBankName"></param>
         /// <returns></returns>
-        public List<BankBase> QueryBankListResult(int BankCode, string Bank)
+        public QueryBankResult QueryBankResult(string QueryBankCode, string QueryBankName)
         {
-            return _bankListRepository.QueryBankListResult(BankCode, Bank);
+            return _bankListRepository.QueryBankResult(QueryBankCode, QueryBankName);
+
         }
     }
 }
