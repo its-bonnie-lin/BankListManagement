@@ -1,5 +1,5 @@
 ﻿@using BankListManagement.Models
-@model List<BankBase>
+@model BankListManagement.Models.QueryBankResult
 
 @{
     ViewBag.Title = "QueryBankResult";
@@ -7,31 +7,33 @@
 
 <h2>QueryBankResult</h2>
 
-@if (Model.Count == 0)
+
+<div class="sc-box scb-table stb-oneline" id="ResultTable">
+@using (Ajax.BeginForm("QueryBankResult", new AjaxOptions { UpdateTargetId = "queryResult" }))
 {
-    Html.RenderPartial("~/Views/Shared/NoData.cshtml");
-}
-else
-{
-    <div class="scb-table-body stb-thbg">
-        <table>
-            <thead>
-                <tr>
-                    <th>銀行代號</th>
-                    <th>金融機構</th>
-                </tr>
-            </thead>
-            <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>@item.BankCode</td>
-                    <td>@item.Bank</td>
-                    <td>@Html.ActionLink("編輯", "Edit", new { name = item }) |</td>
-                    <td>@Html.ActionLink("刪除", "Delete", new { name = item })</td>
-                </tr>
-            }
-            </tbody>
-        </table>
+    <div class="btn-box">
+        <input type="text" id="txtBankCode" name="BankCode" class="s2i-item" placeholder="請輸入銀行代號">
+        <input type="text" id="txtBank" name="BankName" class="s2i-item" placeholder="請輸入查詢銀行">
+        <input type="submit" id="btnQuery" class="btn link-submit" value="查詢" />
     </div>
+
 }
+</div>
+<div class="scb-table-body stb-thbg">
+    <div class="scb-form sf-2column">
+        <dl>
+            <dt class="oneline-inp">銀行代號</dt>
+            <dd>
+                <label class="def-select">
+                    @Html.TextBoxFor(t => t.QueryBankCode new { })
+                </label>
+            </dd>
+        </dl>
+        <dl>
+            <dt class="oneline-inp">金融機構</dt>
+            <dd>
+                @Html.TextBoxFor(t => t.QueryBankName)
+            </dd>
+        </dl>
+    </div>
+</div>

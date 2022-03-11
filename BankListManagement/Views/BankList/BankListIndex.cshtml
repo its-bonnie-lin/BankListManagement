@@ -16,9 +16,29 @@
         </div>
 
     }
-
 </div>
+<div class="scb-table-body stb-thbg">
+    <table>
+        <thead>
+            <tr>
+                <th>銀行代號</th>
+                <th>金融機構</th>
+            </tr>
+        </thead>
+        <tbody>
 
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.BankCode</td>
+                    <td>@item.Bank</td>
+                    <td>@Html.ActionLink("編輯", "Edit", new { name = item }) |</td>
+                    <td>@Html.ActionLink("刪除", "Delete", new { name = item })</td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
 <div id="queryResult">
-
 </div>
