@@ -1,0 +1,22 @@
+﻿@model BankListManagement.Models.AddBankList
+@{
+    ViewBag.Title = "AddList";
+}
+
+<h2>AddList</h2>
+<form method="post" action="/BankList/AddBankList">
+    <div class="scb-table-body stb-thbg">
+        <div>
+            <label for="AddBankCode">銀行代號 : </label>
+            <input type="text" name="BankCode" id="BankCode" placeholder="請輸入新增代號" />
+            @Html.ValidationMessageFor(t => t.Bank, "", new { @class = "text-danger" })
+        </div>
+        <div>
+            <label for="Description">金融機構 :</label>
+            <input type="text" name="Bank" id="Bank" placeholder="請輸入新增銀行" />
+        </div>
+        <div>
+            <input type="submit" value="新增" />
+        </div>
+    </div>
+</form>

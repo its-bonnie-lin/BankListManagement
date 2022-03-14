@@ -34,36 +34,44 @@ namespace BankListManagement.Repositories
         /// <summary>
         /// 查詢
         /// </summary>
-        /// <param name="QueryBankCode"></param>
-        /// <param name="QueryBankName"></param>
-        /// <returns></returns>
-        public QueryBankResult QueryBankResult(string QueryBankCode, string QueryBankName)
+       
+        public QueryBankResult QueryBankResult(string SearchBankCode, string SearchBank)
         {
             var QueryResult = new QueryBankResult();
+            string query = "";
             XDocument xmlDoc = XDocument.Load(filepath);
-            if (string.IsNullOrWhiteSpace(QueryBankName) && !(string.IsNullOrWhiteSpace(QueryBankCode)))
+            if (string.IsNullOrEmpty(SearchBank))
             {
-                QueryResult = (from a in xmlDoc.Descendants("banklist")
-                               where (string)a.Element("bankcode") == QueryBankCode
-                               select new QueryBankResult
-                               {
-                                   QueryBankName = (string)a.Element("bank"),
-                                   QueryBankCode = (string)a.Element("bankcode")
-                               }).FirstOrDefault();
-                return QueryResult;
+                query = (from a in xmlDoc.Descendants("banklist")
+                         where (string)a.Element("bankcode") == SearchBankCode
+                         select (string)a.Element("bank")).FirstOrDefault();
+                QueryResult.Bank = query;
+                QueryResult.BankCode = SearchBankCode;
             }
-            else if ( ( (string.IsNullOrWhiteSpace(QueryBankCode)) && !(string.IsNullOrWhiteSpace(QueryBankName))))
+            else if(string.IsNullOrEmpty(SearchBankCode))
             {
-                QueryResult = (from a in xmlDoc.Descendants("banklist")
-                               where (string)a.Element("bank") == QueryBankName
-                               select new QueryBankResult
-                               {
-                                   QueryBankName = (string)a.Element("bank"),
-                                   QueryBankCode = (string)a.Element("bankcode")
-                               }).FirstOrDefault() ;
-                return QueryResult;
+                query = (from a in xmlDoc.Descendants("banklist")
+                         where (string)a.Element("bank") == SearchBank
+                         select (string)a.Element("bankcode")).FirstOrDefault();
+                QueryResult.Bank = SearchBank;
+                QueryResult.BankCode = query;
             }
             return QueryResult;
+        }
+
+       public void AddBankList(AddBankList addBankList)
+        {
+            XDocument xmlDoc = XDocument.Load(filepath);
+            //XElement banklist = new Element("banklist");
+            //xmlDoc.Add(banklist);
+            //XElement bankcode = new XElement("bankcode", addBankList.BankCode);
+            //XElement bank = new XElement("bank", addBankList.Bank);
+            //banklist.Add(bankcode);
+            //banklist.Add(bank);
+            xmlDoc.Element("note").Add(new XElement("banklist"));
+            xmlDoc.Element("note").Element("banklist").Add(new XElement("bankcode", addBankList.BankCode));
+            xmlDoc.Element("note").Element("banklist").Add(new XElement("bank"), addBankList.Bank);
+            xmlDoc.Save(filepath);
         }
     }
 }

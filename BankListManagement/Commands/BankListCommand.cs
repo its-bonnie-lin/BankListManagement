@@ -24,13 +24,15 @@ namespace BankListManagement.Commands
         /// <summary>
         /// 查詢
         /// </summary>
-        /// <param name="QueryBankCode"></param>
-        /// <param name="QueryBankName"></param>
-        /// <returns></returns>
-        public QueryBankResult QueryBankResult(string QueryBankCode, string QueryBankName)
+        public QueryBankResult QueryBankResult(string SearchBankCode, string SearchBank)
         {
-            var result = _bankListService.QueryBankResult(QueryBankCode, QueryBankName);
+            var result = _bankListService.QueryBankResult(SearchBankCode, SearchBank);
             return result;
+        }
+
+        public void AddBankList(AddBankList addBankList)
+        {
+            _bankListService.AddBankList(addBankList);
         }
     }
 }

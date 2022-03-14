@@ -28,6 +28,17 @@
             </div>
         </div>
     </div>
+    <div class="container body-content" id="ResultTable">
+        @using (Ajax.BeginForm("QueryBankResult", new AjaxOptions { UpdateTargetId = "queryResult" }))
+        {
+            <div class="btn-box">
+                <input type="text" id="SearchBankCode" name="SearchBankCode" class="s2i-item" placeholder="請輸入銀行代號">
+                <input type="text" id="SearchBank" name="SearchBank" class="s2i-item" placeholder="請輸入查詢銀行">
+                <input type="submit" id="btnQuery" class="btn link-submit" value="查詢" />
+            </div>
+
+        }
+    </div>
     <div class="container body-content">
         @RenderBody()
         <hr />
@@ -41,3 +52,5 @@
     @RenderSection("scripts", required: false)
 </body>
 </html>
+<div id="queryResult">
+</div>

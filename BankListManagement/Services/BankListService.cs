@@ -23,13 +23,17 @@ namespace BankListManagement.Services
         /// <summary>
         /// 查詢
         /// </summary>
-        /// <param name="QueryBankCode"></param>
-        /// <param name="QueryBankName"></param>
-        /// <returns></returns>
-        public QueryBankResult QueryBankResult(string QueryBankCode, string QueryBankName)
+        
+        public QueryBankResult QueryBankResult(string SearchBankCode, string SearchBank)
         {
-            return _bankListRepository.QueryBankResult(QueryBankCode, QueryBankName);
+            
+            return _bankListRepository.QueryBankResult(SearchBankCode, SearchBank);
+        }
 
+        public void AddBankList(AddBankList addBankList)
+        {
+            _bankListRepository.AddBankList(addBankList);
         }
     }
+
 }

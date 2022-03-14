@@ -8,7 +8,6 @@ namespace BankListManagement.Models
 {
     public class QueryBankResult:BankBase
     {
-        public string QueryBankCode { get; set; }
-        public string QueryBankName { get; set; }
+        
     }
-}
+} 
