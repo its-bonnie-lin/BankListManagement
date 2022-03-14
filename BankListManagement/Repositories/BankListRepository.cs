@@ -62,15 +62,9 @@ namespace BankListManagement.Repositories
        public void AddBankList(AddBankList addBankList)
         {
             XDocument xmlDoc = XDocument.Load(filepath);
-            //XElement banklist = new Element("banklist");
-            //xmlDoc.Add(banklist);
-            //XElement bankcode = new XElement("bankcode", addBankList.BankCode);
-            //XElement bank = new XElement("bank", addBankList.Bank);
-            //banklist.Add(bankcode);
-            //banklist.Add(bank);
-            xmlDoc.Element("note").Add(new XElement("banklist"));
-            xmlDoc.Element("note").Element("banklist").Add(new XElement("bankcode", addBankList.BankCode));
-            xmlDoc.Element("note").Element("banklist").Add(new XElement("bank"), addBankList.Bank);
+            xmlDoc.Element("note").Add(new XElement("banklist",
+                new XElement("bankcode", addBankList.BankCode),
+                new XElement("bank", addBankList.Bank)));
             xmlDoc.Save(filepath);
         }
     }

@@ -3,7 +3,7 @@
   <banklist>
     <bankcode>1</bankcode>
     <bank>中央信託</bank>
-</banklist>
+  </banklist>
   <banklist>
     <bankcode>6</bankcode>
     <bank>合庫商銀</bank>
@@ -759,5 +759,17 @@
   <banklist>
     <bankcode>816</bankcode>
     <bank>安泰銀行</bank>
+  </banklist>
+  <banklist>
+    <bankcode>111</bankcode>
+    <bank>111</bank>
+  </banklist>
+  <banklist>
+    <bankcode>333</bankcode>
+    <bank>333</bank>
+  </banklist>
+  <banklist>
+    <bankcode>333</bankcode>
+    <bank>Test</bank>
   </banklist>
 </note>
