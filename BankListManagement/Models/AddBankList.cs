@@ -8,12 +8,11 @@ namespace BankListManagement.Models
 {
     public class AddBankList
     {
-        
+        [Required(ErrorMessage = "這是必填欄位1")]
+        [RegularExpression(@"^\d{3}$", ErrorMessage = "格式錯誤")]
         public string BankCode { get; set; }
 
-        [Required(ErrorMessage = "這是必填欄位")]
-    
-        
+        [Required(ErrorMessage = "這是必填欄位2")]
         public string Bank { get; set; }
     }
 }

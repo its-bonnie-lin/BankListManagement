@@ -34,7 +34,6 @@ namespace BankListManagement.Repositories
         /// <summary>
         /// 查詢
         /// </summary>
-       
         public QueryBankResult QueryBankResult(string SearchBankCode, string SearchBank)
         {
             var QueryResult = new QueryBankResult();
@@ -58,7 +57,10 @@ namespace BankListManagement.Repositories
             }
             return QueryResult;
         }
-
+        /// <summary>
+        /// 新增
+        /// </summary>
+        /// <param name="addBankList"></param>
        public void AddBankList(AddBankList addBankList)
         {
             XDocument xmlDoc = XDocument.Load(filepath);

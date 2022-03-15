@@ -8,12 +8,13 @@
     <div class="scb-table-body stb-thbg">
         <div>
             <label for="AddBankCode">銀行代號 : </label>
-            <input type="text" name="BankCode" id="BankCode" placeholder="請輸入新增代號" />
-            @Html.ValidationMessageFor(t => t.Bank, "", new { @class = "text-danger" })
+            @Html.TextBoxFor(t => t.BankCode, new { placeholder = "請輸入新增銀行" })
+            @Html.ValidationMessageFor(t => t.BankCode, "", new { @class = "text-danger" })
         </div>
         <div>
             <label for="Description">金融機構 :</label>
-            <input type="text" name="Bank" id="Bank" placeholder="請輸入新增銀行" />
+            @Html.TextBoxFor(t => t.Bank, new { placeholder = "請輸入新增銀行" })
+            @Html.ValidationMessageFor(t => t.Bank, "", new { @class = "text-danger" })
         </div>
         <div>
             <input type="submit" value="新增" />

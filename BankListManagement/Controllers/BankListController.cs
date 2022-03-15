@@ -43,7 +43,7 @@ namespace BankListManagement.Controllers
         {
             if(!ModelState.IsValid)
             {
-                return View("AddList");
+                return View("AddList", addBankList);
             }
             _bankListCommands.AddBankList(addBankList);
             return RedirectToAction("BankListIndex");

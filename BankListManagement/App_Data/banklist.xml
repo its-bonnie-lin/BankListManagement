@@ -772,4 +772,12 @@
     <bankcode>333</bankcode>
     <bank>Test</bank>
   </banklist>
+  <banklist>
+    <bankcode>TEST</bankcode>
+    <bank>TEST</bank>
+  </banklist>
+  <banklist>
+    <bankcode>546</bankcode>
+    <bank>111</bank>
+  </banklist>
 </note>
