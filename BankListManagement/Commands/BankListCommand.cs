@@ -55,5 +55,14 @@ namespace BankListManagement.Commands
         {
             _bankListService.UpdateBankList(updateBankList);
         }
+
+        /// <summary>
+        /// 刪除
+        /// </summary>
+        /// <param name="id"></param>
+        public void DeleteBankList(string id)
+        {
+            _bankListService.DeleteBankList(id);
+        }
     }
 }

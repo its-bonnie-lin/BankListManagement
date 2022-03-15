@@ -46,7 +46,6 @@ namespace BankListManagement.Services
         /// 更新
         /// </summary>
         /// <param name="updateBankList"></param>
-
         public UpdateBankList LoadID(string id)
         {
             return _bankListRepository.LoadID(id);
@@ -54,6 +53,15 @@ namespace BankListManagement.Services
         public void UpdateBankList(UpdateBankList updateBankList)
         {
             _bankListRepository.UpdateBankList(updateBankList);
+        }
+
+        /// <summary>
+        /// 刪除
+        /// </summary>
+        /// <param name="id"></param>
+        public void DeleteBankList(string id)
+        {
+            _bankListRepository.DeleteBankList(id);
         }
     }
 

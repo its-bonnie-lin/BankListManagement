@@ -952,12 +952,12 @@
   </banklist>
   <banklist>
     <id>191</id>
-    <bankcode>463</bankcode>
-    <bank>456</bank>
+    <bankcode>111</bankcode>
+    <bank>TEST</bank>
   </banklist>
   <banklist>
     <id>192</id>
-    <bankcode>563</bankcode>
-    <bank>TEST</bank>
+    <bankcode>123</bankcode>
+    <bank>TEST2</bank>
   </banklist>
 </note>

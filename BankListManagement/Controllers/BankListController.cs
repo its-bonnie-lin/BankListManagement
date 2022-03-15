@@ -64,6 +64,11 @@ namespace BankListManagement.Controllers
             return View();
         }
 
+        /// <summary>
+        /// 更新
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult EditList(string id)
         {
@@ -78,6 +83,12 @@ namespace BankListManagement.Controllers
                 return View("EditList", updateBankList);
             }
             _bankListCommands.UpdateBankList(updateBankList);
+            return RedirectToAction("BankListIndex");
+        }
+
+        public ActionResult DeleteList(string id)
+        {
+            _bankListCommands.DeleteBankList(id);
             return RedirectToAction("BankListIndex");
         }
     }

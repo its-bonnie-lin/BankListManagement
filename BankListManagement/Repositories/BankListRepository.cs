@@ -55,6 +55,7 @@ namespace BankListManagement.Repositories
             }
             return QueryResult;
         }
+
         /// <summary>
         /// 新增
         /// </summary>
@@ -69,8 +70,12 @@ namespace BankListManagement.Repositories
                 new XElement("bank", addBankList.Bank)));
             xmlDoc.Save(filepath);
         }
-
        
+        /// <summary>
+        /// 更新
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public UpdateBankList LoadID(string id)
         {
             var LoadResult = new UpdateBankList();
@@ -88,8 +93,6 @@ namespace BankListManagement.Repositories
             LoadResult.Bank = querybank;
             return LoadResult;
         }
-
-
         public void UpdateBankList(UpdateBankList updateBankList)
         {
             XDocument xmlDoc = XDocument.Load(filepath);
@@ -104,6 +107,18 @@ namespace BankListManagement.Repositories
             }
             xmlDoc.Save(filepath);
 
+        }
+
+        /// <summary>
+        /// 刪除
+        /// </summary>
+        /// <param name="id"></param>
+        public void DeleteBankList(string id)
+        {
+            XDocument xmlDoc = XDocument.Load(filepath);
+            var deletequery = xmlDoc.Descendants("banklist").Where(x => x.Element("id").Value == id);
+            deletequery.Remove();
+            xmlDoc.Save(filepath);
         }
     }
 }
