@@ -1,0 +1,27 @@
+﻿@model BankListManagement.Models.UpdateBankList
+@{
+    ViewBag.Title = "EditList";
+}
+
+<h2>EditList</h2>
+<form method="post" action="/BankList/EditList">
+    <div class="scb-table-body stb-thbg">
+        <div>
+            @Html.TextBoxFor(t => t.id , new { @class = "hidden" })
+        </div>
+        <div>
+            <label for="EditBankCode">銀行代號 : </label>
+            @Html.TextBoxFor(t => t.BankCode, new { @Value = Model.BankCode })
+            @Html.ValidationMessageFor(t => t.BankCode, "", new { @class = "text-danger" })
+        </div>
+        <div>
+            <label for="EditBank">金融機構 :</label>
+            @Html.TextBoxFor(t => t.Bank, new { @Value = Model.Bank })
+            @Html.ValidationMessageFor(t => t.Bank, "", new { @class = "text-danger" })
+        </div>
+        <div>
+            <input type="submit" value="修改" />
+        </div>
+    </div>
+</form>
+

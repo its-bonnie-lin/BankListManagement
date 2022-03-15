@@ -6,11 +6,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BankListManagement.Models
 {
-    public class BankBase
+    public class UpdateBankList : AddBankList
     {
-        public string id { get; set; }
-
-        public string BankCode { get; set; }
-        public string Bank { get; set; }
+        
     }
 }

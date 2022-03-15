@@ -24,15 +24,36 @@ namespace BankListManagement.Commands
         /// <summary>
         /// 查詢
         /// </summary>
+        /// <param name="SearchBankCode"></param>
+        /// <param name="SearchBank"></param>
+        /// <returns></returns>
         public QueryBankResult QueryBankResult(string SearchBankCode, string SearchBank)
         {
             var result = _bankListService.QueryBankResult(SearchBankCode, SearchBank);
             return result;
         }
 
+        /// <summary>
+        /// 新增
+        /// </summary>
+        /// <param name="addBankList"></param>
         public void AddBankList(AddBankList addBankList)
         {
             _bankListService.AddBankList(addBankList);
+        }
+
+        /// <summary>
+        /// 更新
+        /// </summary>
+        /// <param name="updateBankList"></param>
+
+        public UpdateBankList LoadID(string id)
+        {
+            return _bankListService.LoadID(id);
+        }
+        public void UpdateBankList(UpdateBankList updateBankList)
+        {
+            _bankListService.UpdateBankList(updateBankList);
         }
     }
 }

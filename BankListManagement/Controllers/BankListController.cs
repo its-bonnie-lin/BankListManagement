@@ -29,6 +29,12 @@ namespace BankListManagement.Controllers
             return View(list);
         }
 
+        /// <summary>
+        /// 查詢
+        /// </summary>
+        /// <param name="SearchBankCode"></param>
+        /// <param name="SearchBank"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult QueryBankResult(string SearchBankCode, string SearchBank)
         {
@@ -38,6 +44,11 @@ namespace BankListManagement.Controllers
             return View(list);
         }
 
+        /// <summary>
+        /// 新增
+        /// </summary>
+        /// <param name="addBankList"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult AddBankList(AddBankList addBankList)
         {
@@ -51,6 +62,23 @@ namespace BankListManagement.Controllers
         public ActionResult AddList()
         {
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult EditList(string id)
+        {
+           UpdateBankList _updateBankList =  _bankListCommands.LoadID(id);
+            return View(_updateBankList);
+        }
+        [HttpPost]
+        public ActionResult EditList(UpdateBankList updateBankList)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("EditList", updateBankList);
+            }
+            _bankListCommands.UpdateBankList(updateBankList);
+            return RedirectToAction("BankListIndex");
         }
     }
 }

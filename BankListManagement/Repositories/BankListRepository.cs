@@ -17,13 +17,11 @@ namespace BankListManagement.Repositories
             List<BankBase> bankLists = new List<BankBase>();
             XmlDocument xmlDoc = new XmlDocument();
             xmlDoc.Load(filepath);
-
-            //取得結點
             XmlNodeList NodeLists = xmlDoc.SelectNodes("note/banklist");
-            
             foreach (XmlNode xnFileCheck in NodeLists)
             {
                 BankBase banklist = new BankBase();
+                banklist.id = xnFileCheck.SelectSingleNode("id").InnerText;
                 banklist.BankCode = xnFileCheck.SelectSingleNode("bankcode").InnerText;
                 banklist.Bank = xnFileCheck.SelectSingleNode("bank").InnerText;
                 bankLists.Add(banklist);
@@ -64,10 +62,48 @@ namespace BankListManagement.Repositories
        public void AddBankList(AddBankList addBankList)
         {
             XDocument xmlDoc = XDocument.Load(filepath);
+            int maxid = xmlDoc.Descendants("id").Max(x => (int)x);
             xmlDoc.Element("note").Add(new XElement("banklist",
+                new XElement("id",maxid+1),
                 new XElement("bankcode", addBankList.BankCode),
                 new XElement("bank", addBankList.Bank)));
             xmlDoc.Save(filepath);
+        }
+
+       
+        public UpdateBankList LoadID(string id)
+        {
+            var LoadResult = new UpdateBankList();
+            XDocument xmlDoc = XDocument.Load(filepath);
+            var querybankcode  = (from a in xmlDoc.Descendants("banklist")
+                                 where (string)a.Element("id") == id
+                                 select (string)a.Element("bankcode")).FirstOrDefault();
+
+            var querybank = (from a in xmlDoc.Descendants("banklist")
+                             where (string)a.Element("id") == id
+                             select (string)a.Element("bank")).FirstOrDefault();
+
+            LoadResult.id = id;
+            LoadResult.BankCode = querybankcode;
+            LoadResult.Bank = querybank;
+            return LoadResult;
+        }
+
+
+        public void UpdateBankList(UpdateBankList updateBankList)
+        {
+            XDocument xmlDoc = XDocument.Load(filepath);
+            
+            var updatequery = from a in xmlDoc.Descendants("banklist")
+                               where a.Element("id").Value == (updateBankList.id).ToString()
+                               select a;
+            foreach(var query in updatequery)
+            {
+                query.Element("bankcode").SetValue(updateBankList.BankCode);
+                query.Element("bank").SetValue(updateBankList.Bank);
+            }
+            xmlDoc.Save(filepath);
+
         }
     }
 }

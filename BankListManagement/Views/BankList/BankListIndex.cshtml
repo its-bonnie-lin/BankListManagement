@@ -12,6 +12,7 @@
     <table>
         <thead>
             <tr>
+                <th>編號</th>
                 <th>銀行代號</th>
                 <th>金融機構</th>
             </tr>
@@ -20,12 +21,13 @@
 
             @foreach (var item in Model)
             {
-                <tr>
-                    <td>@item.BankCode</td>
-                    <td>@item.Bank</td>
-                    <td>@Html.ActionLink("編輯", "Edit", new { name = item }) |</td>
-                    <td>@Html.ActionLink("刪除", "Delete", new { name = item })</td>
-                </tr>
+            <tr>
+                <td>@item.id</td>
+                <td>@item.BankCode</td>
+                <td>@item.Bank</td>
+                <td>@Html.ActionLink("編輯", "EditList", new { id = item.id }) |</td>
+                <td>@Html.ActionLink("刪除", "Delete", new { name = item })</td>
+            </tr>
             }
 
         </tbody>
