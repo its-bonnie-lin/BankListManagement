@@ -6,6 +6,10 @@ using BankListManagement.Models;
 using System.Xml;
 using System.IO;
 using System.Xml.Linq;
+using Newtonsoft.Json;
+using System.Net.Security;
+using System.Text;
+using System.Net;
 
 namespace BankListManagement.Repositories
 {
@@ -14,19 +18,9 @@ namespace BankListManagement.Repositories
         string filepath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "app_data", "banklist.xml");
         public List<BankBase> ReadBankList()
         {
-            List<BankBase> bankLists = new List<BankBase>();
-            XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.Load(filepath);
-            XmlNodeList NodeLists = xmlDoc.SelectNodes("note/banklist");
-            foreach (XmlNode xnFileCheck in NodeLists)
-            {
-                BankBase banklist = new BankBase();
-                banklist.id = xnFileCheck.SelectSingleNode("id").InnerText;
-                banklist.BankCode = xnFileCheck.SelectSingleNode("bankcode").InnerText;
-                banklist.Bank = xnFileCheck.SelectSingleNode("bank").InnerText;
-                bankLists.Add(banklist);
-            }
-            return bankLists;
+
+            string URL = "https://localhost:44392/BankList/BankListIndex";
+            return PostToApi<List<BankBase>>(URL, null);
         }
 
         /// <summary>
@@ -34,26 +28,11 @@ namespace BankListManagement.Repositories
         /// </summary>
         public QueryBankResult QueryBankResult(string SearchBankCode, string SearchBank)
         {
-            var QueryResult = new QueryBankResult();
-            string query = "";
-            XDocument xmlDoc = XDocument.Load(filepath);
-            if (string.IsNullOrEmpty(SearchBank))
-            {
-                query = (from a in xmlDoc.Descendants("banklist")
-                         where (string)a.Element("bankcode") == SearchBankCode
-                         select (string)a.Element("bank")).FirstOrDefault();
-                QueryResult.Bank = query;
-                QueryResult.BankCode = SearchBankCode;
-            }
-            else if(string.IsNullOrEmpty(SearchBankCode))
-            {
-                query = (from a in xmlDoc.Descendants("banklist")
-                         where (string)a.Element("bank") == SearchBank
-                         select (string)a.Element("bankcode")).FirstOrDefault();
-                QueryResult.Bank = SearchBank;
-                QueryResult.BankCode = query;
-            }
-            return QueryResult;
+            string URL = "https://localhost:44392/BankList/QueryBankResult";
+            return PostToApi<QueryBankResult>(URL, new {
+                SearchBankCode,
+                SearchBank
+            });
         }
 
         /// <summary>
@@ -62,13 +41,8 @@ namespace BankListManagement.Repositories
         /// <param name="addBankList"></param>
        public void AddBankList(AddBankList addBankList)
         {
-            XDocument xmlDoc = XDocument.Load(filepath);
-            int maxid = xmlDoc.Descendants("id").Max(x => (int)x);
-            xmlDoc.Element("note").Add(new XElement("banklist",
-                new XElement("id",maxid+1),
-                new XElement("bankcode", addBankList.BankCode),
-                new XElement("bank", addBankList.Bank)));
-            xmlDoc.Save(filepath);
+            string URL = "https://localhost:44392/BankList/AddList";
+            PostToApi<List<BankBase>>(URL, addBankList);
         }
        
         /// <summary>
@@ -78,35 +52,13 @@ namespace BankListManagement.Repositories
         /// <returns></returns>
         public UpdateBankList LoadID(string id)
         {
-            var LoadResult = new UpdateBankList();
-            XDocument xmlDoc = XDocument.Load(filepath);
-            var querybankcode  = (from a in xmlDoc.Descendants("banklist")
-                                 where (string)a.Element("id") == id
-                                 select (string)a.Element("bankcode")).FirstOrDefault();
-
-            var querybank = (from a in xmlDoc.Descendants("banklist")
-                             where (string)a.Element("id") == id
-                             select (string)a.Element("bank")).FirstOrDefault();
-
-            LoadResult.id = id;
-            LoadResult.BankCode = querybankcode;
-            LoadResult.Bank = querybank;
-            return LoadResult;
+            string URL = "https://localhost:44392/BankList";
+            return PostToApi<UpdateBankList>(URL, id);
         }
         public void UpdateBankList(UpdateBankList updateBankList)
         {
-            XDocument xmlDoc = XDocument.Load(filepath);
-            
-            var updatequery = from a in xmlDoc.Descendants("banklist")
-                               where a.Element("id").Value == (updateBankList.id).ToString()
-                               select a;
-            foreach(var query in updatequery)
-            {
-                query.Element("bankcode").SetValue(updateBankList.BankCode);
-                query.Element("bank").SetValue(updateBankList.Bank);
-            }
-            xmlDoc.Save(filepath);
-
+            string URL = "https://localhost:44392/BankList";
+            PostToApi(URL, updateBankList);
         }
 
         /// <summary>
@@ -115,10 +67,92 @@ namespace BankListManagement.Repositories
         /// <param name="id"></param>
         public void DeleteBankList(string id)
         {
-            XDocument xmlDoc = XDocument.Load(filepath);
-            var deletequery = xmlDoc.Descendants("banklist").Where(x => x.Element("id").Value == id);
-            deletequery.Remove();
-            xmlDoc.Save(filepath);
+            string URL = "https://localhost:44392/BankList/DeleteList";
+            PostToApi(URL, id);
         }
+
+
+        private void PostToApi(string url, object obj)
+        {
+
+            string json = JsonConvert.SerializeObject(obj);
+            return;
+        }
+        private T PostToApi<T>(string url, object obj) 
+        {
+
+            string json = JsonConvert.SerializeObject(obj);
+            
+        }
+
+        /// <summary>
+        ///  NetworkHelper
+        /// </summary>
+        private int _defaultTimeout = 15;
+        public int DefaultTimeout
+        {
+            get
+            {
+                return _defaultTimeout;
+            }
+            set
+            {
+                _defaultTimeout = value;
+            }
+        }
+        public string DoRequest(string url, string data, string contentType,
+                        int timeoutSeconds, CookieContainer cookieContainer, IDictionary<string, string> headers)
+        {
+            //如果是https請求
+            if (url.StartsWith("https", StringComparison.OrdinalIgnoreCase))
+            {
+                // 忽略憑證
+                ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback((s, cert, chain, errors) => true);
+            }
+
+            //### 建立HttpWebRequest物件
+            HttpWebRequest httpWebRequest = WebRequest.Create(url) as HttpWebRequest;
+            httpWebRequest.ProtocolVersion = HttpVersion.Version10;
+
+            //### 指定送出去的方式為POST
+            httpWebRequest.Method = "POST";
+            httpWebRequest.UserAgent = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0)";
+            httpWebRequest.Accept = "text/html";
+            httpWebRequest.Referer = "https://www.ecpay.com.tw";
+
+            //### 設定content type, it is required, otherwise it will not work.
+            httpWebRequest.ContentType = contentType;
+
+            //設定Timeout時間(單位毫秒)
+            httpWebRequest.Timeout = ((timeoutSeconds > 0) ? timeoutSeconds : DefaultTimeout) * 1000;
+
+            string receiveData = null;
+
+            //### 取得request stream 並且寫入post data
+            using (StreamWriter sw = new StreamWriter(httpWebRequest.GetRequestStream()))
+            {
+                //### 設定要送出的參數; separated by "&"
+                sw.Write(data ?? string.Empty);
+                sw.Flush();
+                sw.Close();
+            }
+
+            //### 取得server的reponse結果
+            HttpWebResponse httpWebResponse = httpWebRequest.GetResponse() as HttpWebResponse;
+            using (StreamReader sr = new StreamReader(httpWebResponse.GetResponseStream(), Encoding.UTF8))
+            {
+                receiveData = sr.ReadToEnd();
+                sr.Close();
+            }
+
+            httpWebResponse.Close();
+
+            return receiveData;
+        }
+        public string DoRequestWithJson(string url, string json)
+        {
+            return DoRequest(url, json, "application/json", 0, null, null);
+        }
+
     }
 }
