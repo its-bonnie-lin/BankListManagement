@@ -76,15 +76,28 @@ namespace BankListManagement.Repositories
         {
 
             string json = JsonConvert.SerializeObject(obj);
+            string postResul = DoRequestWithJson(url, json);
+
             return;
         }
         private T PostToApi<T>(string url, object obj) 
         {
 
             string json = JsonConvert.SerializeObject(obj);
-            
+            BaseResult baseResult = new BaseResult();
+            string postResul = DoRequestWithJson(url, json);
+
+            var resModel = JsonConvert.DeserializeObject<T>(postResul);
+
+            baseResult.RtnCode = 1;
+            baseResult.RtnMsg = resModel.ToString();
+
+            return baseResult;
+
         }
 
+        
+        
         /// <summary>
         ///  NetworkHelper
         /// </summary>
