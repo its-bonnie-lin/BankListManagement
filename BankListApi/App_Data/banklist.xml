@@ -958,11 +958,36 @@
   <banklist>
     <id>192</id>
     <bankcode>123</bankcode>
-    <bank>TEST2</bank>
+    <bank>Test2</bank>
   </banklist>
   <banklist>
     <id>193</id>
-    <bankcode>111</bankcode>
-    <bank>TEST</bank>
+    <bankcode>134</bankcode>
+    <bank>Test3</bank>
+  </banklist>
+  <banklist>
+    <id>194</id>
+    <bankcode>156</bankcode>
+    <bank>Test1221</bank>
+  </banklist>
+  <banklist>
+    <id>195</id>
+    <bankcode>789</bankcode>
+    <bank>Test23</bank>
+  </banklist>
+  <banklist>
+    <id>196</id>
+    <bankcode>056</bankcode>
+    <bank>Test12215</bank>
+  </banklist>
+  <banklist>
+    <id>197</id>
+    <bankcode>888</bankcode>
+    <bank>Test1223</bank>
+  </banklist>
+  <banklist>
+    <id>198</id>
+    <bankcode>269</bankcode>
+    <bank>Test122133</bank>
   </banklist>
 </note>

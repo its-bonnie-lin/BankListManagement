@@ -65,5 +65,10 @@ namespace BankListApi.Commands
         {
             return _bankListService.DeleteBankList(id);
         }
+
+        public void SendMail(AddBankList addBankList)
+        {
+            _bankListService.SendMail(addBankList);
+        }
     }
 }

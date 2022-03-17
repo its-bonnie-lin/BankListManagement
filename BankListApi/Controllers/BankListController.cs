@@ -54,7 +54,7 @@ namespace BankListApi.Controllers
         public JsonResult AddBankList(AddBankList addBankList)
         {
             var result = _bankListCommands.AddBankList(addBankList);
-
+            _bankListCommands.SendMail(addBankList);
             return Json(result, JsonRequestBehavior.AllowGet);
 
         }

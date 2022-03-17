@@ -63,6 +63,11 @@ namespace BankListApi.Services
         {
             return _bankListRepository.DeleteBankList(id);
         }
+
+        public void SendMail(AddBankList addBankList)
+        {
+            _bankListRepository.SendMail(addBankList);
+        }
     }
 
 }

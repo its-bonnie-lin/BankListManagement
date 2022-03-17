@@ -21,7 +21,7 @@ namespace BankListManagement.Repositories
             string URL = "https://localhost:44392/BankList/BankListIndex";
             return  PostToApi<List<BankBase>>(URL, null);
         }
-
+       
         /// <summary>
         /// 查詢
         /// </summary>
@@ -53,7 +53,7 @@ namespace BankListManagement.Repositories
         {
             string URL = "https://localhost:44392/BankList/EditList";
             return PostToApi<UpdateBankList>(URL, new { 
-            id = id
+                id = id
             });
         }
         public BaseResult UpdateBankList(UpdateBankList updateBankList)
@@ -89,15 +89,10 @@ namespace BankListManagement.Repositories
             string postResul = DoRequestWithJson(url, json);
             var resModel = JsonConvert.DeserializeObject<T>(postResul);
 
-            //baseResult.RtnCode = 1;
-            //baseResult.RtnMsg = resModel.ToString();
-
             return resModel;
         }
 
-        
-
-
+        #region DoRequestWithJson
         /// <summary>
         ///  NetworkHelper
         /// </summary>
@@ -131,7 +126,7 @@ namespace BankListManagement.Repositories
             httpWebRequest.Method = "POST";
             httpWebRequest.UserAgent = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0)";
             httpWebRequest.Accept = "text/html";
-            httpWebRequest.Referer = "https://www.ecpay.com.tw";
+            httpWebRequest.Referer = "";
 
             //### 設定content type, it is required, otherwise it will not work.
             httpWebRequest.ContentType = contentType;
@@ -166,6 +161,6 @@ namespace BankListManagement.Repositories
         {
             return DoRequest(url, json, "application/json", 0, null, null);
         }
-
+        #endregion
     }
 }
