@@ -50,51 +50,43 @@ namespace BankListApi.Controllers
         /// </summary>
         /// <param name="addBankList"></param>
         /// <returns></returns>
-        //[HttpPost]
+        
         public JsonResult AddBankList(AddBankList addBankList)
         {
-            //if(!ModelState.IsValid)
-            //{
-            //    return View("AddList", addBankList);
-            //}
             var result = _bankListCommands.AddBankList(addBankList);
 
             return Json(result, JsonRequestBehavior.AllowGet);
 
-            //return RedirectToAction("BankListIndex");
         }
-
-        //public ActionResult AddList()
-        //{
-        //    return View();
-        //}
 
         /// <summary>
         /// 更新
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpGet]
+        
         public ActionResult EditList(string id)
         {
-           UpdateBankList _updateBankList =  _bankListCommands.LoadID(id);
-            return View(_updateBankList);
+            var result = _bankListCommands.LoadID(id);
+            return Json(result, JsonRequestBehavior.AllowGet);
+            //UpdateBankList _updateBankList =  _bankListCommands.LoadID(id);
+            // return View(_updateBankList);
         }
         [HttpPost]
-        public ActionResult EditList(UpdateBankList updateBankList)
+        public ActionResult EditBankList(UpdateBankList updateBankList)
         {
-            if (!ModelState.IsValid)
-            {
-                return View("EditList", updateBankList);
-            }
-            _bankListCommands.UpdateBankList(updateBankList);
-            return RedirectToAction("BankListIndex");
+            var result = _bankListCommands.UpdateBankList(updateBankList);
+            return Json(result, JsonRequestBehavior.AllowGet);
+            //_bankListCommands.UpdateBankList(updateBankList);
+            //return RedirectToAction("BankListIndex");
         }
 
         public ActionResult DeleteList(string id)
         {
-            _bankListCommands.DeleteBankList(id);
-            return RedirectToAction("BankListIndex");
+            //_bankListCommands.DeleteBankList(id);
+            //return RedirectToAction("BankListIndex");
+            var result = _bankListCommands.DeleteBankList(id);
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }

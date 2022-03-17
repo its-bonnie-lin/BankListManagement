@@ -37,9 +37,9 @@ namespace BankListManagement.Services
         /// 新增
         /// </summary>
         /// <param name="addBankList"></param>
-        public void AddBankList(AddBankList addBankList)
+        public BaseResult AddBankList(AddBankList addBankList)
         {
-            _bankListRepository.AddBankList(addBankList);
+            return _bankListRepository.AddBankList(addBankList);
         }
 
         /// <summary>
@@ -50,18 +50,18 @@ namespace BankListManagement.Services
         {
             return _bankListRepository.LoadID(id);
         }
-        public void UpdateBankList(UpdateBankList updateBankList)
+        public BaseResult UpdateBankList(UpdateBankList updateBankList)
         {
-            _bankListRepository.UpdateBankList(updateBankList);
+            return _bankListRepository.UpdateBankList(updateBankList);
         }
 
         /// <summary>
         /// 刪除
         /// </summary>
         /// <param name="id"></param>
-        public void DeleteBankList(string id)
+        public BaseResult DeleteBankList(string id)
         {
-            _bankListRepository.DeleteBankList(id);
+            return _bankListRepository.DeleteBankList(id);
         }
     }
 

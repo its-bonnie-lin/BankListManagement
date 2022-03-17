@@ -99,7 +99,7 @@ namespace BankListApi.Repositories
             LoadResult.Bank = querybank;
             return LoadResult;
         }
-        public void UpdateBankList(UpdateBankList updateBankList)
+        public BaseResult UpdateBankList(UpdateBankList updateBankList)
         {
             XDocument xmlDoc = XDocument.Load(filepath);
             
@@ -112,6 +112,11 @@ namespace BankListApi.Repositories
                 query.Element("bank").SetValue(updateBankList.Bank);
             }
             xmlDoc.Save(filepath);
+            return new BaseResult()
+            {
+                RtnCode = 1,
+                RtnMsg = "成功"
+            };
 
         }
 
@@ -119,12 +124,17 @@ namespace BankListApi.Repositories
         /// 刪除
         /// </summary>
         /// <param name="id"></param>
-        public void DeleteBankList(string id)
+        public BaseResult DeleteBankList(string id)
         {
             XDocument xmlDoc = XDocument.Load(filepath);
             var deletequery = xmlDoc.Descendants("banklist").Where(x => x.Element("id").Value == id);
             deletequery.Remove();
             xmlDoc.Save(filepath);
+            return new BaseResult()
+            {
+                RtnCode = 1,
+                RtnMsg = "成功"
+            };
         }
     }
 }

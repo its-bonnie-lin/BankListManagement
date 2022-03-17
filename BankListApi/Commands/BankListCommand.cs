@@ -51,18 +51,19 @@ namespace BankListApi.Commands
         {
             return _bankListService.LoadID(id);
         }
-        public void UpdateBankList(UpdateBankList updateBankList)
+        public BaseResult UpdateBankList(UpdateBankList updateBankList)
         {
-            _bankListService.UpdateBankList(updateBankList);
+            return _bankListService.UpdateBankList(updateBankList);
+            
         }
 
         /// <summary>
         /// 刪除
         /// </summary>
         /// <param name="id"></param>
-        public void DeleteBankList(string id)
+        public BaseResult DeleteBankList(string id)
         {
-            _bankListService.DeleteBankList(id);
+            return _bankListService.DeleteBankList(id);
         }
     }
 }

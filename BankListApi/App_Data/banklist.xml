@@ -960,4 +960,9 @@
     <bankcode>123</bankcode>
     <bank>TEST2</bank>
   </banklist>
+  <banklist>
+    <id>193</id>
+    <bankcode>111</bankcode>
+    <bank>TEST</bank>
+  </banklist>
 </note>

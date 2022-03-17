@@ -18,9 +18,8 @@ namespace BankListManagement.Repositories
         string filepath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "app_data", "banklist.xml");
         public List<BankBase> ReadBankList()
         {
-
             string URL = "https://localhost:44392/BankList/BankListIndex";
-            return PostToApi<List<BankBase>>(URL, null);
+            return  PostToApi<List<BankBase>>(URL, null);
         }
 
         /// <summary>
@@ -39,10 +38,10 @@ namespace BankListManagement.Repositories
         /// 新增
         /// </summary>
         /// <param name="addBankList"></param>
-       public void AddBankList(AddBankList addBankList)
+       public BaseResult AddBankList(AddBankList addBankList)
         {
-            string URL = "https://localhost:44392/BankList/AddList";
-            PostToApi<List<BankBase>>(URL, addBankList);
+            string URL = "https://localhost:44392/BankList/AddBankList";
+            return PostToApi<BaseResult>(URL, addBankList);
         }
        
         /// <summary>
@@ -52,52 +51,53 @@ namespace BankListManagement.Repositories
         /// <returns></returns>
         public UpdateBankList LoadID(string id)
         {
-            string URL = "https://localhost:44392/BankList";
-            return PostToApi<UpdateBankList>(URL, id);
+            string URL = "https://localhost:44392/BankList/EditList";
+            return PostToApi<UpdateBankList>(URL, new { 
+            id = id
+            });
         }
-        public void UpdateBankList(UpdateBankList updateBankList)
+        public BaseResult UpdateBankList(UpdateBankList updateBankList)
         {
-            string URL = "https://localhost:44392/BankList";
-            PostToApi(URL, updateBankList);
+            string URL = "https://localhost:44392/BankList/EditBankList";
+           return PostToApi<BaseResult>(URL, updateBankList);
         }
 
         /// <summary>
         /// 刪除
         /// </summary>
         /// <param name="id"></param>
-        public void DeleteBankList(string id)
+        public BaseResult DeleteBankList(string id)
         {
             string URL = "https://localhost:44392/BankList/DeleteList";
-            PostToApi(URL, id);
+           return PostToApi<BaseResult>(URL, new
+           {
+               id = id
+           });
         }
 
-
-        private void PostToApi(string url, object obj)
-        {
-
-            string json = JsonConvert.SerializeObject(obj);
-            string postResul = DoRequestWithJson(url, json);
-
-            return;
-        }
+        /// <summary>
+        /// Post方法
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="url"></param>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         private T PostToApi<T>(string url, object obj) 
         {
 
             string json = JsonConvert.SerializeObject(obj);
-            BaseResult baseResult = new BaseResult();
             string postResul = DoRequestWithJson(url, json);
-
             var resModel = JsonConvert.DeserializeObject<T>(postResul);
 
-            baseResult.RtnCode = 1;
-            baseResult.RtnMsg = resModel.ToString();
+            //baseResult.RtnCode = 1;
+            //baseResult.RtnMsg = resModel.ToString();
 
-            return baseResult;
-
+            return resModel;
         }
 
         
-        
+
+
         /// <summary>
         ///  NetworkHelper
         /// </summary>

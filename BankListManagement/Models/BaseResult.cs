@@ -5,9 +5,9 @@ using System.Web;
 
 namespace BankListManagement.Models
 {
+
     public class BaseResult
     {
-
         /// <summary>
         /// 結果代碼
         /// </summary>

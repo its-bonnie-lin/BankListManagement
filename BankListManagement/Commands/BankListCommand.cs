@@ -37,9 +37,9 @@ namespace BankListManagement.Commands
         /// 新增
         /// </summary>
         /// <param name="addBankList"></param>
-        public void AddBankList(AddBankList addBankList)
+        public BaseResult AddBankList(AddBankList addBankList)
         {
-            _bankListService.AddBankList(addBankList);
+            return _bankListService.AddBankList(addBankList);
         }
 
         /// <summary>
@@ -51,18 +51,18 @@ namespace BankListManagement.Commands
         {
             return _bankListService.LoadID(id);
         }
-        public void UpdateBankList(UpdateBankList updateBankList)
+        public BaseResult UpdateBankList(UpdateBankList updateBankList)
         {
-            _bankListService.UpdateBankList(updateBankList);
+            return _bankListService.UpdateBankList(updateBankList);
         }
 
         /// <summary>
         /// 刪除
         /// </summary>
         /// <param name="id"></param>
-        public void DeleteBankList(string id)
+        public BaseResult DeleteBankList(string id)
         {
-            _bankListService.DeleteBankList(id);
+            return _bankListService.DeleteBankList(id);
         }
     }
 }

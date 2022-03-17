@@ -69,14 +69,13 @@ namespace BankListManagement.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpGet]
         public ActionResult EditList(string id)
         {
            UpdateBankList _updateBankList =  _bankListCommands.LoadID(id);
             return View(_updateBankList);
         }
         [HttpPost]
-        public ActionResult EditList(UpdateBankList updateBankList)
+        public ActionResult EditBankList(UpdateBankList updateBankList)
         {
             if (!ModelState.IsValid)
             {
