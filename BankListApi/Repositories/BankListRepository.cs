@@ -97,7 +97,7 @@ namespace BankListApi.Repositories
             mail.Body = mail.Body.Replace("{Bank}", addBankList.Bank);
             mail.IsBodyHtml = true;
             System.Net.Mail.SmtpClient MySmtp = new System.Net.Mail.SmtpClient("smtp.gmail.com", 587);
-            MySmtp.Credentials = new System.Net.NetworkCredential("bonbonnieuuu@gmail.com", "xxxxxxxxxxxx");
+            MySmtp.Credentials = new System.Net.NetworkCredential("bonbonnieuuu@gmail.com", "gmwgzdphkaasyzwp");
             MySmtp.EnableSsl = true;
             MySmtp.Send(mail);
             MySmtp = null;
