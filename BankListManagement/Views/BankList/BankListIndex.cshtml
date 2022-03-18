@@ -4,14 +4,25 @@
     ViewBag.Title = "BankListIndex";
 }
 
-<h2>BankListIndex</h2>
+<h2>Bank List</h2>
+<div class="container body-content" id="ResultTable">
+    @using (Ajax.BeginForm("QueryBankResult", new AjaxOptions { UpdateTargetId = "queryResult" }))
+    {
+        <div class="btn-box">
+            <input type="text" id="SearchBankCode" name="SearchBankCode" class="s2i-item" placeholder="請輸入銀行代號">
+            <input type="text" id="SearchBank" name="SearchBank" class="s2i-item" placeholder="請輸入查詢銀行">
+            <input type="submit" id="btnQuery" class="btn link-submit" value="查詢" />
+        </div>
+
+    }
+</div>
 
 <a href="/BankList/AddList">新增資料</a>
 
-<div class="scb-table-body stb-thbg">
-    <table border="1"  >
+<div class="scb-table-body stb-thbg" style="text-align: center;">
+    <table border="1">
         <thead>
-            <tr style = "text-align: center;">
+            <tr>
                 <th style="padding: 5px; width: 50px;">編號</th>
                 <th style="padding: 5px; width: 70px;">銀行代號</th>
                 <th style="padding: 5px; width: 100px;">金融機構</th>
@@ -21,15 +32,17 @@
 
             @foreach (var item in Model)
             {
-            <tr style = "text-align: center;">
-                <td>@item.id</td>
-                <td>@item.BankCode</td>
-                <td>@item.Bank</td>
-                <td>@Html.ActionLink("編輯", "EditList", new { id = item.id })</td>
-                <td>@Html.ActionLink("刪除", "DeleteList", new { id = item.id })</td>
-            </tr>
+                <tr>
+                    <td>@item.id</td>
+                    <td>@item.BankCode</td>
+                    <td>@item.Bank</td>
+                    <td>@Html.ActionLink("編輯", "EditList", new { id = item.id })</td>
+                    <td>@Html.ActionLink("刪除", "DeleteList", new { id = item.id })</td>
+                </tr>
             }
 
         </tbody>
     </table>
+</div>
+<div id="queryResult">
 </div>

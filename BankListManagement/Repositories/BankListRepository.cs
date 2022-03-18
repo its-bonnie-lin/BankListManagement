@@ -132,7 +132,7 @@ namespace BankListManagement.Repositories
             httpWebRequest.ContentType = contentType;
 
             //設定Timeout時間(單位毫秒)
-            httpWebRequest.Timeout = ((timeoutSeconds > 0) ? timeoutSeconds : DefaultTimeout) * 1000;
+            httpWebRequest.Timeout = ((timeoutSeconds > 5000) ? timeoutSeconds : DefaultTimeout) * 1000;
 
             string receiveData = null;
 

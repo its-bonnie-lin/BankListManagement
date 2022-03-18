@@ -85,9 +85,8 @@ namespace BankListApi.Repositories
         {
             
             MailMessage mail = new MailMessage();
-            //前面是發信email後面是顯示的名稱
             mail.From = new MailAddress("bonnie@gmail.com", "Bonnie");
-            mail.To.Add("cccooowww0203@gmail.com");
+            mail.To.Add("bonbonnieuuu@gmail.com");
             mail.Priority = MailPriority.Normal;
             mail.Subject = "Bank List 新增資料";
             //內容

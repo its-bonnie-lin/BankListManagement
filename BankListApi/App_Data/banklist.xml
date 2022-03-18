@@ -972,22 +972,7 @@
   </banklist>
   <banklist>
     <id>195</id>
-    <bankcode>789</bankcode>
-    <bank>Test23</bank>
-  </banklist>
-  <banklist>
-    <id>196</id>
-    <bankcode>056</bankcode>
-    <bank>Test12215</bank>
-  </banklist>
-  <banklist>
-    <id>197</id>
-    <bankcode>888</bankcode>
-    <bank>Test1223</bank>
-  </banklist>
-  <banklist>
-    <id>198</id>
-    <bankcode>269</bankcode>
-    <bank>Test122133</bank>
+    <bankcode>123</bankcode>
+    <bank>測試測試</bank>
   </banklist>
 </note>
