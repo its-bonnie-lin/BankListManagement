@@ -962,17 +962,22 @@
   </banklist>
   <banklist>
     <id>193</id>
-    <bankcode>134</bankcode>
-    <bank>Test3</bank>
+    <bankcode>123</bankcode>
+    <bank>常旺銀行</bank>
   </banklist>
   <banklist>
     <id>194</id>
-    <bankcode>156</bankcode>
-    <bank>Test1221</bank>
+    <bankcode>000</bankcode>
+    <bank>常旺測試</bank>
   </banklist>
   <banklist>
     <id>195</id>
-    <bankcode>123</bankcode>
-    <bank>測試測試</bank>
+    <bankcode>001</bankcode>
+    <bank>+0嗨嗨</bank>
+  </banklist>
+  <banklist>
+    <id>196</id>
+    <bankcode>789</bankcode>
+    <bank>燒肉</bank>
   </banklist>
 </note>

@@ -81,29 +81,36 @@ namespace BankListApi.Repositories
         }
         #endregion
 
+        #region 發信
         public void SendMail(AddBankList addBankList)
         {
-            
+
             MailMessage mail = new MailMessage();
             mail.From = new MailAddress("bonnie@gmail.com", "Bonnie");
-            mail.To.Add("bonbonnieuuu@gmail.com");
+            //mail.To.Add("nokia.chiang@ecpay.com.tw");
+            mail.To.Add("bonnie.lin@ecpay.com.tw");
             mail.Priority = MailPriority.Normal;
             mail.Subject = "Bank List 新增資料";
             //內容
             mail.Body =
-            "<h2>以下為新增資料</h2>" + "<table border=1; border-collapse:collapse; style=width:500px;text-align:center;><tbody><tr><td> 銀行代碼: </td><td> {BankCode} </td></tr><tr><td> 金融機構名稱: </td><td> {Bank} </td></tr></tbody></table>";
+            "<h2>以下為新增資料</h2><table border='1';  style='width:500px'; style='text-align:center'; style='border-collapse : collapse';><tbody><tr><td> <h2>銀行代碼</h2></td><td><h2> {BankCode} </h2></td></tr><tr><td> <h2>金融機構名稱</h2></td><td><h2> {Bank} </h2></td></tr></tbody></table>";
             mail.Body = mail.Body.Replace("{BankCode}", addBankList.BankCode);
             mail.Body = mail.Body.Replace("{Bank}", addBankList.Bank);
             mail.IsBodyHtml = true;
-            System.Net.Mail.SmtpClient MySmtp = new System.Net.Mail.SmtpClient("smtp.gmail.com", 587);
-            MySmtp.Credentials = new System.Net.NetworkCredential("bonbonnieuuu@gmail.com", "gmwgzdphkaasyzwp");
-            MySmtp.EnableSsl = true;
-            MySmtp.Send(mail);
-            MySmtp = null;
-            mail.Dispose();
+            SmtpClient MySmtp = new SmtpClient("192.168.151.2", 25);
+            MySmtp.UseDefaultCredentials = false;
+            try
+            {
+                MySmtp.Send(mail);
+                mail.Dispose();
+                MySmtp.Dispose();
+            }
+            catch (Exception ex)
+            {
+                ex.ToString();
+            }
         }
-           
-        
+        #endregion
 
         #region 更新
         /// <summary>
