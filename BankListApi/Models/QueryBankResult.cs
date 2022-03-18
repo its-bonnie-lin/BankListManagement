@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BankListApi.Models
 {
-    public class QueryBankResult:BankBase
+    public class QueryBankResult: AddBankList
     {
         
     }

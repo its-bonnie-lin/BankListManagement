@@ -85,6 +85,11 @@ namespace BankListManagement.Controllers
             return RedirectToAction("BankListIndex");
         }
 
+        /// <summary>
+        /// 刪除
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult DeleteList(string id)
         {
             _bankListCommands.DeleteBankList(id);
