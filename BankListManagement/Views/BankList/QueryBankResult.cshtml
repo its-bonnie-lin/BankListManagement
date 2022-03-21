@@ -1,6 +1,7 @@
 ﻿@using BankListManagement.Models
 @model BankListManagement.Models.QueryBankResult
 
+
 @{
     ViewBag.Title = "QueryBankResult";
 }
@@ -11,22 +12,30 @@
 
 <div class="scb-table-body stb-thbg">
     <div class="scb-form sf-2column">
-        <dl>
-            <dt class="oneline-inp">銀行代號</dt>
-            <dd>
-                <label class="def-select">
-                    @Html.TextBoxFor(t => t.BankCode)
-                </label>
-            </dd>
-        </dl>
-        <dl>
-            <dt class="oneline-inp">金融機構</dt>
-            <dd>
-                <label class="def-select">
-                    @Html.TextBoxFor(t => t.Bank, new { })
-                </label>
-            </dd>
-        </dl>
+        @if (string.IsNullOrEmpty(Model.Bank) || string.IsNullOrEmpty(Model.BankCode))
+        {
+            <dl>無此銀行或代碼</dl>
+        }
+        else
+        {
+            <dl>
+                <dt class="oneline-inp">銀行代號</dt>
+                <dd>
+                    <label class="def-select">
+                        @Html.TextBoxFor(t => t.BankCode)
+                    </label>
+                </dd>
+            </dl>
+            <dl>
+                <dt class="oneline-inp">金融機構</dt>
+                <dd>
+                    <label class="def-select">
+                        @Html.TextBoxFor(t => t.Bank)
+                    </label>
+                </dd>
+            </dl>
+        }
+
     </div>
 </div>
 <div>

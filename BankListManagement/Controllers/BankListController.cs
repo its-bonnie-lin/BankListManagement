@@ -38,7 +38,6 @@ namespace BankListManagement.Controllers
         [HttpPost]
         public ActionResult QueryBankResult(string SearchBankCode, string SearchBank)
         {
-            
             var list = _bankListCommands.QueryBankResult(SearchBankCode, SearchBank);
             
             return View(list);

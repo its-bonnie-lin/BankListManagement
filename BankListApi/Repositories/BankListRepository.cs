@@ -38,7 +38,7 @@ namespace BankListApi.Repositories
             var QueryResult = new QueryBankResult();
             string query = "";
             XDocument xmlDoc = XDocument.Load(filepath);
-            if (string.IsNullOrEmpty(SearchBank))
+            if (!string.IsNullOrEmpty(SearchBankCode))
             {
                 query = (from a in xmlDoc.Descendants("banklist")
                          where (string)a.Element("bankcode") == SearchBankCode
@@ -46,7 +46,7 @@ namespace BankListApi.Repositories
                 QueryResult.Bank = query;
                 QueryResult.BankCode = SearchBankCode;
             }
-            else if(string.IsNullOrEmpty(SearchBankCode))
+            else if(!string.IsNullOrEmpty(SearchBank))
             {
                 query = (from a in xmlDoc.Descendants("banklist")
                          where (string)a.Element("bank") == SearchBank
