@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.ComponentModel.DataAnnotations;
+using PagedList;
+using PagedList.Mvc;
 
 namespace BankListManagement.Controllers
 {
@@ -23,10 +25,11 @@ namespace BankListManagement.Controllers
             _bankListServices = bankListServices;
         }
 
-        public ActionResult BankListIndex()
+        public ActionResult BankListIndex(int page = 1, int pageSize = 40)
         {
-            var list = _bankListCommands.ReadBankList();
-            return View(list);
+            var list = _bankListCommands.ReadBankList().ToList();
+            var result = list.ToPagedList(page, pageSize);
+            return View(result);
         }
 
         /// <summary>

@@ -1,6 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <note xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <banklist>
+    <id>191</id>
+    <bankcode>111</bankcode>
+    <bank>測測</bank>
+  </banklist>
+  <banklist>
     <id>1</id>
     <bankcode>1</bankcode>
     <bank>中央信託</bank>
@@ -949,35 +954,5 @@
     <id>190</id>
     <bankcode>816</bankcode>
     <bank>安泰銀行</bank>
-  </banklist>
-  <banklist>
-    <id>191</id>
-    <bankcode>111</bankcode>
-    <bank>TEST</bank>
-  </banklist>
-  <banklist>
-    <id>192</id>
-    <bankcode>123</bankcode>
-    <bank>Test2</bank>
-  </banklist>
-  <banklist>
-    <id>193</id>
-    <bankcode>123</bankcode>
-    <bank>常旺銀行</bank>
-  </banklist>
-  <banklist>
-    <id>194</id>
-    <bankcode>000</bankcode>
-    <bank>常旺測試</bank>
-  </banklist>
-  <banklist>
-    <id>195</id>
-    <bankcode>001</bankcode>
-    <bank>+0嗨嗨</bank>
-  </banklist>
-  <banklist>
-    <id>196</id>
-    <bankcode>789</bankcode>
-    <bank>燒肉</bank>
   </banklist>
 </note>

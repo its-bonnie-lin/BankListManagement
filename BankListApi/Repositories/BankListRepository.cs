@@ -67,7 +67,7 @@ namespace BankListApi.Repositories
         {
             XDocument xmlDoc = XDocument.Load(filepath);
             int maxid = xmlDoc.Descendants("id").Max(x => (int)x);
-            xmlDoc.Element("note").Add(new XElement("banklist",
+            xmlDoc.Element("note").AddFirst(new XElement("banklist",
                 new XElement("id", maxid + 1),
                 new XElement("bankcode", addBankList.BankCode),
                 new XElement("bank", addBankList.Bank)));

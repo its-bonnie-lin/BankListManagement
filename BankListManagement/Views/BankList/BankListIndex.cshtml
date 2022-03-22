@@ -1,5 +1,8 @@
 ﻿@using BankListManagement.Models;
-@model List<BankBase>
+@*@model List<BankBase>*@
+@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.PagedList<BankListManagement.Models.BankBase>
 @{
     ViewBag.Title = "BankListIndex";
 }
@@ -23,26 +26,27 @@
     <table border="1">
         <thead>
             <tr>
-                <th style="padding: 5px; width: 50px;">編號</th>
                 <th style="padding: 5px; width: 70px;">銀行代號</th>
                 <th style="padding: 5px; width: 100px;">金融機構</th>
+                <th style="padding: 5px; width: 50px;">編輯</th>
+                <th style="padding: 5px; width: 50px;">刪除</th>
             </tr>
         </thead>
         <tbody>
 
-            @foreach (var item in Model)
+            @foreach (var record in Model)
             {
                 <tr>
-                    <td>@item.id</td>
-                    <td>@item.BankCode</td>
-                    <td>@item.Bank</td>
-                    <td>@Html.ActionLink("編輯", "EditList", new { id = item.id })</td>
-                    <td>@Html.ActionLink("刪除", "DeleteList", new { id = item.id })</td>
+                    <td>@Html.DisplayFor(item => record.BankCode)@Html.HiddenFor(item => record.id)</td>
+                    <td>@Html.DisplayFor(item => record.Bank)</td>
+                    <td>@Html.ActionLink("編輯", "EditList", new { id = record.id })</td>
+                    <td>@Html.ActionLink("刪除", "DeleteList", new { id = record.id })</td>
                 </tr>
             }
 
         </tbody>
     </table>
 </div>
+@Html.PagedListPager((IPagedList)Model, x => Url.Action("BankListIndex", new { page = x }))
 <div id="queryResult">
 </div>
