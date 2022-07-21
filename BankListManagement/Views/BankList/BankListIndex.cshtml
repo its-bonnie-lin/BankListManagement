@@ -3,6 +3,7 @@
 @using PagedList;
 @using PagedList.Mvc;
 @model PagedList.PagedList<BankListManagement.Models.BankBase>
+
 @{
     ViewBag.Title = "BankListIndex";
 }
@@ -11,13 +12,44 @@
 <div class="container body-content" id="ResultTable">
     @using (Ajax.BeginForm("QueryBankResult", new AjaxOptions { UpdateTargetId = "queryResult" }))
     {
-        <div class="btn-box">
-            <input type="text" id="SearchBankCode" name="SearchBankCode" class="s2i-item" placeholder="請輸入銀行代號">
-            <input type="text" id="SearchBank" name="SearchBank" class="s2i-item" placeholder="請輸入查詢銀行">
-            <input type="submit" id="btnQuery" class="btn link-submit" value="查詢" />
+        <div class="btn-box" v-on:click="SendQuest">
+            <form>
+                <input type="text" id="SearchBankCode" name="SearchBankCode" class="SearchBankCode" placeholder="請輸入銀行代號" v-model="SearchBankCode" />
+                <input type="text" id="SearchBank" name="SearchBank" class="SearchBank" placeholder="請輸入查詢銀行" v-model="SearchBank" />
+                <button id="btnQuery" class="btnQuery" type="submit">查詢</button>
+                <p v-if="errors.length">
+                    <ul>
+                        <li v-for="error in errors">{{ error }}</li>
+                    </ul>
+                </p>
+            </form>
         </div>
-
     }
+    <!-- script of QueryBankResult -->
+    <script src="~/Scripts/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: '.btn-box',
+            data: {
+                SearchBankCode: '',
+                SearchBank: '',
+                errors: []
+            },
+            methods: {
+                SendQuest: function (e) {
+                    this.errors = [];
+                    if (!this.SearchBank && !this.SearchBankCode) {
+                        this.errors.push("銀行或銀行代碼為必填欄位.");
+                    }
+                    if (!this.errors.length) {
+                        return true;
+                    }
+                    e.preventDefault();
+                }
+            }
+        })
+    </script>
+    <!-- script of QueryBankResult -->
 </div>
 
 <a href="/BankList/AddList">新增資料</a>
@@ -36,12 +68,13 @@
 
             @foreach (var record in Model)
             {
-                <tr>
-                    <td>@Html.DisplayFor(item => record.BankCode)@Html.HiddenFor(item => record.id)</td>
-                    <td>@Html.DisplayFor(item => record.Bank)</td>
-                    <td>@Html.ActionLink("編輯", "EditList", new { id = record.id })</td>
-                    <td>@Html.ActionLink("刪除", "DeleteList", new { id = record.id })</td>
-                </tr>
+            <tr>
+                <td>@Html.DisplayFor(item => record.BankCode)@Html.HiddenFor(item => record.id)</td>
+                <td>@Html.DisplayFor(item => record.Bank)</td>
+                <td>@Html.ActionLink("編輯", "EditList", new { id = record.id })</td>
+                @*<td>@Html.ActionLink("刪除", "DeleteList", new { id = record.id }, new { @class = "Delete" })</td>*@
+                <td><button class="Delete" >刪除</button></td>
+            </tr>
             }
 
         </tbody>
@@ -50,3 +83,29 @@
 @Html.PagedListPager((IPagedList)Model, x => Url.Action("BankListIndex", new { page = x }))
 <div id="queryResult">
 </div>
+
+<!-- script of DeleteList -->
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script>
+    $('.Delete').click(function () {
+        var id = $("#record_id").val();
+        var flag = confirm("你確定要刪除嗎？");
+        if (flag) {
+            $.ajax({
+                url: '/BankList/DeleteList/' + id,
+                type: "post",
+                data: {},
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    alert("刪除成功！");
+                    /*location.replace("/BankList/BankListIndex");*/
+                    $("#record_id").parent().parent().remove();
+                    
+                },
+                failure: function (data) {
+                    alert("刪除失敗！");
+                }
+            })
+        }
+    })
+</script>
